@@ -14,6 +14,7 @@ class Board extends Component {
         }
         this.delete = this.delete.bind(this);
         this.update = this.update.bind(this);
+        this.eachComment = this.eachComment.bind(this);
     }
     delete(i) {
         console.log("The comment deleted was the #", i);
