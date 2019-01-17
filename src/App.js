@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       edit: false,
-    }
+      texto: ''
+    };
 
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
@@ -19,30 +19,33 @@ class App extends Component {
     this.props.deleteComment(this.props.index);
   }
   save() {
-    this.props.updateComment(this.refs.textArea.value, this.props.index);
+    this.props.updateComment(this.state.texto, this.props.index);
     this.setState({ edit: false });
   }
   renderNormal() {
     return (
       <div className="component">
-        <div className="title">
-          {this.props.children}
-        </div>
-        <button onClick={this.edit} className="caution">Edit</button>
-        <button onClick={this.delete} className="danger">Delete</button>
+        <div className="title">{this.props.children}</div>
+        <button onClick={this.edit} className="caution">
+          Edit
+        </button>
+        <button onClick={this.delete} className="danger">
+          Delete
+        </button>
       </div>
-    )
+    );
   }
   renderForm() {
     return (
       <div className="component">
         <div className="title">
-          <textarea ref="textArea" defaultValue={this.props.children}></textarea>
+          <input type="text" value={this.state.texto} onChange={pepito => this.setState({ texto: pepito.target.value })} />
         </div>
-        <button onClick={this.save} className="primary">Save</button>
-
+        <button onClick={this.save} className="primary">
+          Save
+        </button>
       </div>
-    )
+    );
   }
 
   render() {
@@ -55,4 +58,3 @@ class App extends Component {
 }
 
 export default App;
-
