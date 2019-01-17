@@ -6,22 +6,27 @@ class Board extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            comments: [
-                "Hola mundo!",
-                "Aún estoy aqui...",
-                "Ya me voy!"
-            ]
+            comments: []
         }
+        this.add = this.add.bind(this);
         this.delete = this.delete.bind(this);
         this.update = this.update.bind(this);
         this.eachComment = this.eachComment.bind(this);
     }
+    //function to add a new Comment!
+    add(text) {
+        var newComment = this.state.comments;
+        newComment.push(text);
+        this.setState({ comments: newComment });
+    }
+    //function to delete a comment!
     delete(i) {
         console.log("The comment deleted was the #", i);
         var newArr = this.state.comments;
-        newArr.slice(i, 1);//slice function take two parameters that are the index where it start and how many elements should delete
+        newArr.splice(i, 1);//slice function take two parameters that are the index where it start and how many elements should delete
         this.setState({ comments: newArr });
     }
+    //function to edit a comment!
     update(nextText, i) {
         console.log("The comment was updated!");
         var newArr = this.state.comments;
@@ -41,12 +46,14 @@ class Board extends Component {
     render() {
         return (
             <div>
-                {this.state.comments.map(this.eachComment)}
+                <button onClick={this.add.bind(null, "This is a default text!")} className="primary">Add Comment</button>
+                <div>
+                    {this.state.comments.map(this.eachComment)}
+                </div>
             </div>
+
         )
     }
-
-
 }
 
 export default Board;
