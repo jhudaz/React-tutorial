@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-
 class App extends Component {
 
   constructor(props) {
@@ -11,6 +10,7 @@ class App extends Component {
 
     this.edit = this.edit.bind(this);
     this.save = this.save.bind(this);
+    this.delete = this.delete.bind(this);
   }
   edit() {
     this.setState({ edit: true });
@@ -29,7 +29,7 @@ class App extends Component {
           {this.props.children}
         </div>
         <button onClick={this.edit} className="caution">Edit</button>
-        <button className="danger">Delete</button>
+        <button onClick={this.delete} className="danger">Delete</button>
       </div>
     )
   }
@@ -55,3 +55,4 @@ class App extends Component {
 }
 
 export default App;
+
