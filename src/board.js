@@ -3,7 +3,7 @@ import App from "./App";
 import "./App.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { saveComment, addComment } from './actions/comments';
+import {  addComment } from './actions/comments';
 
 
 class Board extends Component {
@@ -43,7 +43,7 @@ class Board extends Component {
       //we are going to send a function to the other component through a property with a any nick that we want to use
       <App
         key={i}
-        index={i}
+        index={comment.id}
         updateComment={this.update}
         deleteComment={this.delete}
       >
@@ -53,7 +53,6 @@ class Board extends Component {
   }
   //here we only map the elements inside comments state
   render() {
-    console.log(this.props);
     return (
       <div>
         <button
@@ -68,13 +67,12 @@ class Board extends Component {
   }
 }
 function mapStateToProps({defaultCommentReducer}) {
-  //console.log('defaultCommentReducer', defaultCommentReducer);
   return {
     defaultCommentReducer
   }
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addComment, saveComment }, dispatch)
+  return bindActionCreators({ addComment }, dispatch)
 }
 
 

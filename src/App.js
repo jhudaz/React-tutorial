@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
+import { saveComment } from './actions/comments';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +23,7 @@ class App extends Component {
     this.props.deleteComment(this.props.index);
   }
   save() {
-    this.props.updateComment(this.state.texto, this.props.index);
+    this.props.saveComment(this.props.index,this.state.texto);
     this.setState({ edit: false });
   }
   renderNormal() {
@@ -57,4 +61,8 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ saveComment }, dispatch)
+}
+
+export default connect(undefined,mapDispatchToProps)(App);
