@@ -8,13 +8,13 @@ import reducers from './reducers';
 import { Provider } from 'react-redux';
 //import Test from './test';
 
-const store = createStore(reducers);
+const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 console.log('store', store);
 
 ReactDOM.render(
     <Provider store={store}>
-        <Board/>
+        <Board />
     </Provider>
     , document.getElementById('root'));
 
