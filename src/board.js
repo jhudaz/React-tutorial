@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import App from "./App";
 import "./App.css";
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+import { saveComment, addComment } from './actions/comments';
+
 
 class Board extends Component {
   constructor(props) {
@@ -34,7 +38,7 @@ class Board extends Component {
     this.setState({ comments: newArr });
   }
   //this function it will put the  text using the elements inside of comments state  into the App component
-  eachComment(text, i) {
+  eachComment(comment, i) {
     return (
       //we are going to send a function to the other component through a property with a any nick that we want to use
       <App
@@ -43,24 +47,35 @@ class Board extends Component {
         updateComment={this.update}
         deleteComment={this.delete}
       >
-        {text}
+        {comment.comment}
       </App>
     );
   }
   //here we only map the elements inside comments state
   render() {
+    console.log(this.props);
     return (
       <div>
         <button
-          onClick={this.add.bind(null, "This is a default text!")}
+          onClick={() => this.props.addComment()}
           className="primary"
         >
           Add Comment
         </button>
-        <div>{this.state.comments.map(this.eachComment)}</div>
+        <div>{this.props.defaultCommentReducer.map(this.eachComment)}</div>
       </div>
     );
   }
 }
+function mapStateToProps({defaultCommentReducer}) {
+  //console.log('defaultCommentReducer', defaultCommentReducer);
+  return {
+    defaultCommentReducer
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addComment, saveComment }, dispatch)
+}
 
-export default Board;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
